@@ -73,7 +73,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future<void> loadAsset() async {
-    String fileText = await rootBundle.loadString('assets/about.txt');
+    String fileText = await rootBundle.loadString('assets/SY970B1972d/book.xml');
     setState(() {
       _fileContents = fileText;
     });
