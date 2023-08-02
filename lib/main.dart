@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:xml/xml.dart' as xml;
+import 'dart:io';
+import 'package:flutter/services.dart' show rootBundle;
 
 void main() {
   runApp(const MyApp());
@@ -10,6 +13,11 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+
+    // AssetBundle bundle = DefaultAssetBundle.of(context);
+    // final file = new File('assets/SY970B1972d/book.xml');
+    // final document = xml.XmlDocument.parse(file.readAsStringSync());
+
     return MaterialApp(
       title: 'Akuzipik',
       theme: ThemeData(
@@ -56,6 +64,20 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  String _fileContents = '';
+
+  @override
+  void initState() {
+    super.initState();
+    loadAsset();
+  }
+
+  Future<void> loadAsset() async {
+    String fileText = await rootBundle.loadString('assets/about.txt');
+    setState(() {
+      _fileContents = fileText;
+    });
+  }
 
   void _incrementCounter() {
     setState(() {
@@ -109,7 +131,7 @@ class _MyHomePageState extends State<MyHomePage> {
               'You have pushed the button this many times:',
             ),
             Text(
-              '$_counter',
+              '$_counter' + ' ' + _fileContents,
               style: Theme.of(context).textTheme.headlineMedium,
             ),
           ],
