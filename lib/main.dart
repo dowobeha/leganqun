@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:xml/xml.dart' as xml;
+import 'package:xml/xml.dart';
 import 'dart:io';
 import 'package:flutter/services.dart' show rootBundle;
 
@@ -74,8 +74,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Future<void> loadAsset() async {
     String fileText = await rootBundle.loadString('assets/SY970B1972d/book.xml');
+    final document = XmlDocument.parse(fileText);
+    document.findAllElements('title').first;
     setState(() {
-      _fileContents = fileText;
+      _fileContents = document.findAllElements('title').first.innerText;
     });
   }
 
